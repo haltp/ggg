@@ -3,6 +3,7 @@
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>      
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,36 +34,36 @@
 </head>
 <body>
 <h3 id="top">사원수정</h3>
-<form action="updateEmp" method="post" name="frm">
-	employee_id <input type="number" name="employee_id" value="${empVO.employee_id}" <c:if test="${not empty empVO.employee_id} }"> readonly="readonly"</c:if> ><br>
-	first_name  <input name="first_name" value="${empVO.first_name}"><br>
-	last_name   <input name="last_name" value="${empVO.last_name}"><br>
-	email       <input type="email" name="email" value="${empVO.email}">
-				<button type="button" id="btnEmail">중복체크</button>
-				<span id="emailResult"></span><br>
-	phone_number<input type="text" name="phone_number" value="${empVO.phone_number}"><br>
-	hire_date   <input type="date" name="hire_date" value="${empVO.hire_date}"><br>
+<form:form modelAttribute="empVO" action="updateEmp" method="post" name="frm">
+	employee_id <form:input path="employee_id" />
+				<br>
+	first_name  <form:input path="first_name" />
+				<br>
+	last_name   <form:input path="last_name" />
+				<br>
+	email       <form:input type="email" path="email" />
+				<form:button type="button" id="btnEmail">중복체크</form:button>
+				<span id="emailResult"></span>
+				<br>
+	phone_number<form:input type="text" path="phone_number" />
+				<br>
+	hire_date   <form:input type="date" path="hire_date" />
+				<br>
 	department_id 
-				<input type="radio" name="department_id" value="10" >기획
+				<form:radiobuttons items="${deptList}" path="department_id"
+				itemLabel="department_name" itemValue="department_id"/>
+				<br>	
+	job_id      <form:select path="job_id">
+					<option value="" >선택</option>
+					<form:options items="${jobList}" itemLabel="job_title" itemValue="job_id" />
+				</form:select>
 				<br>
-					 
-	job_id      <select name="job_id">
-				<option value="AD_ASST" >AD_ASST</option>
-				<c:forEach items="${jobList}" var="job">
-				</c:forEach>
-				</select>
-				<br>
-	
-	
-				  
 	manager_id 
-	<input type="text" name="manager_id" value="${empVO.manager_id}">
-	<input type="text" name="mname">
-	<button type="button" onclick="search()">사원검색</button><br>	
-
-	<button type="submit">등록</button>
-	<button type="reset">초기화</button>
-</form>
-
+				<form:input path="manager_id" />
+				<input type="text" name="mname">
+				<button type="button" onclick="search()">사원검색</button><br>	
+				<button type="submit">등록</button>
+				<button type="reset">초기화</button>
+</form:form>
 </body>
 </html>

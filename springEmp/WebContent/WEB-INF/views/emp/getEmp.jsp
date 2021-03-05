@@ -18,6 +18,8 @@
 	</script>
 </head>
 <body>
+파라미터 ${emp11} <!-- 이름을 맘대로 바꾸고 싶다면 -->
+<hr>
 	사번 : ${emp.employee_id}
 	<br> 
 	이름 : ${emp.first_name} ${emp.last_name}

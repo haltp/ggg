@@ -39,6 +39,11 @@ public class DeptServiceimpl implements DeptService{
 		return dao.getSearchDept(vo);
 	}
 
+	@Override
+	public int getCount(DeptVO vo) {
+		return dao.getCount(vo);
+	}
+
 	
 	
 }

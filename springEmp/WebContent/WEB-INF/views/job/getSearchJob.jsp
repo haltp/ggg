@@ -10,7 +10,7 @@
 <body>
 <h3>JOB목록</h3>
 <c:forEach items="${list}" var="job">
-<a href="getJob?job_id=${job.job_id}">${job.job_title}</a> ${job.min_salary} ${job.max_salary}<br>
+job_title: <a href="getJob?job_id=${job.job_id}">${job.job_title}</a> min_salary: ${job.min_salary} max_salary: ${job.max_salary}<br>
 </c:forEach>
 <a href="insertJob">JOB등록</a>
 </body>

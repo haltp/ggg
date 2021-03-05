@@ -5,34 +5,40 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.emp.EmpSearchVO;
 import com.yedam.emp.EmpVO;
 import com.yedam.emp.service.EmpService;
 
 @Service
 public class EmpServiceimpl implements EmpService{
 
-	//@Autowired EmpSpringDAO empDAO;
-	//@Autowired EmpMybatisDAO empDAO;
-	@Autowired EmpMapper empDAO;
+	//@Autowired EmpSpringDAO dao;
+	//@Autowired EmpMybatisDAO dao;
+	@Autowired EmpMapper dao;
 	
+	//@Transactional
 	public int insertEmp(EmpVO vo) {
-		return empDAO.insertEmp(vo);
+		return dao.insertEmp(vo);
 	}
-
+	
 	public int updateEmp(EmpVO vo) {
-		return empDAO.updateEmp(vo);
+		return dao.updateEmp(vo);
 	}
 
 	public int deleteEmp(EmpVO vo) {
-		return empDAO.deleteEmp(vo);
+		return dao.deleteEmp(vo);
 	}
 
 	public EmpVO getEmp(EmpVO vo) {
-		return empDAO.getEmp(vo);
+		return dao.getEmp(vo);
 	}
 
-	public List<EmpVO> getSearchEmp(EmpVO vo) {
-		return empDAO.getSearchEmp(vo);
+	public List<EmpVO> getSearchEmp(EmpSearchVO vo) {
+		return dao.getSearchEmp(vo);
+	}
+
+	public int getCount(EmpSearchVO vo) {
+		return dao.getCount(vo);
 	}
 
 	

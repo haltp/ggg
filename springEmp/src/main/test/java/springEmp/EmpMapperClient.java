@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.yedam.emp.EmpVO;
+import com.yedam.emp.service.EmpService;
 import com.yedam.emp.service.impl.EmpMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,6 +21,7 @@ import com.yedam.emp.service.impl.EmpMapper;
 public class EmpMapperClient {
 	
 	@Autowired EmpMapper empMapper;
+	@Autowired EmpService empService;
 	
 	//@Test
 	public void getEmp() {
@@ -41,17 +43,17 @@ public class EmpMapperClient {
 	@Test
 	public void insertEmp() {
 		EmpVO vo = EmpVO.builder()
-						.employee_id("992")
+						.employee_id("999")
 						.manager_id("100")
 						.last_name("test1")
-						.email("a@dw23a.cd")
+						.email("a@dsda.cd")
 						.hire_date(new java.sql.Date(new Date(0).getTime()))
 				        .job_id("IT_PROG")
 						.first_name("na")
 						.phone_number("010.5555")
 						.department_id("60")
 				        .build();
-		int result = empMapper.insertEmp(vo);
+		int result = empService.insertEmp(vo);
 		assertEquals(result, 1);
 	}
 	

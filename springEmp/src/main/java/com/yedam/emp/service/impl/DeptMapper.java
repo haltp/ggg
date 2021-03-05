@@ -19,4 +19,7 @@ public interface DeptMapper {
 		
 		//전체/검색 조회
 		public List<DeptVO> getSearchDept(DeptVO vo);
+		
+		//건수
+		public int getCount(DeptVO vo);
 }

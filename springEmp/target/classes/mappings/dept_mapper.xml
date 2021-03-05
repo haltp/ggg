@@ -5,10 +5,10 @@
 <!--parameterType 생략가능 resultType생략 불가 -->
 
 <mapper namespace="com.yedam.emp.service.impl.DeptMapper">
-	<select id="getSearchDept" parameterType="dept"
-		resultType="dept">
-		SELECT D.*, E.LAST_NAME, L.CITY FROM DEPARTMENTS D LEFT OUTER JOIN EMPLOYEES E 
-		ON D.MANAGER_ID=E.EMPLOYEE_ID RIGHT OUTER JOIN LOCATIONS L ON D.LOCATION_ID=L.LOCATION_ID
+
+	<!-- 레코드건수 -->
+	<select id="getCount" resultType="int">
+		SELECT COUNT(*) FROM DEPARTMENTS
 		<where>
 			<if test="department_name != null and department_name !=''">
 				upper(DEPARTMENT_NAME) LIKE '%'||upper(#{department_name})||'%'
@@ -17,10 +17,32 @@
 				AND MANAGER_ID = #{manager_id}
 			</if>
 		</where>
-		ORDER BY 1
+	</select>
+
+	<select id="getSearchDept" parameterType="DeptVO" resultType="dept">
+		SELECT B.* FROM( SELECT ROWNUM RN ,A.* FROM(
+		SELECT D.*, 
+		E.LAST_NAME, 
+		L.CITY
+		FROM DEPARTMENTS D
+		LEFT OUTER JOIN EMPLOYEES E
+		ON D.MANAGER_ID=E.EMPLOYEE_ID
+		RIGHT OUTER JOIN LOCATIONS L
+		ON D.LOCATION_ID=L.LOCATION_ID
+		<where>
+			<if test="department_name != null and department_name !=''">
+				upper(D.DEPARTMENT_NAME) LIKE '%'||upper(#{department_name})||'%'
+			</if>
+			<if test="manager_id != null and manager_id !=''">
+				AND D.MANAGER_ID = #{manager_id}
+			</if>
+		</where>
+		ORDER BY D.DEPARTMENT_ID
+		) A ) B where RN between #{start} AND #{end}
 	</select>
 	<insert id="insertDept" parameterType="dept">
-		INSERT INTO DEPARTMENTS (DEPARTMENT_ID,
+		INSERT INTO DEPARTMENTS
+		(DEPARTMENT_ID,
 		DEPARTMENT_NAME,
 		MANAGER_ID,
 		LOCATION_ID)
@@ -30,16 +52,19 @@
 		#{location_id})
 	</insert>
 	<update id="updateDept">
-		UPDATE DEPARTMENTS SET DEPARTMENT_NAME =#{department_name},
+		UPDATE DEPARTMENTS SET DEPARTMENT_NAME
+		=#{department_name},
 		MANAGER_ID=#{manager_id},
 		LOCATION_ID=#{location_id}
 		WHERE DEPARTMENT_ID=#{department_id}
 	</update>
 	<delete id="deleteDept">
-		DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID=#{department_id}
+		DELETE FROM DEPARTMENTS WHERE
+		DEPARTMENT_ID=#{department_id}
 	</delete>
 	<select id="getDept" resultType="dept">
-		SELECT * FROM DEPARTMENTS WHERE DEPARTMENT_ID=#{department_id}
+		SELECT * FROM DEPARTMENTS WHERE
+		DEPARTMENT_ID=#{department_id}
 	</select>
 
 </mapper>

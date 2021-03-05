@@ -10,6 +10,6 @@
 <h1>메인</h1>
 <a href="getSearchEmp">사원조회</a>
 <a href="getSearchDept">부서조회</a>
-<a href="getSearchJob">부서조회</a>
+<a href="getSearchJob">JOB조회</a>
 </body>
 </html>
