@@ -20,4 +20,10 @@ public interface UserMapper {
 
 	// 전체 조회
 	public List<UserVO> getSearchUser(UserVO vo);
+	
+	//로그인
+	public boolean logCheck(UserVO vo);
+		
+	//changePw
+	public int updatePw(UserVO vo);
 }

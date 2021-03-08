@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.yedam.board.service.UserService;
 import com.yedam.emp.UserVO;
 
-
 @Service
 public class UserServiceimpl implements UserService {
 
@@ -38,6 +37,36 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public int updateUser(UserVO vo) {
 		return dao.updateUser(vo);
+
+	}
+
+	@Override
+	public boolean logCheck(UserVO vo) {
+		// 단건조회
+		UserVO uservo = dao.getUser(vo);
+		// id일치하는지 체크
+		if (uservo == null) {
+			return false;
+		}
+
+		// pw일치여부 체크
+		if (uservo.getPassword().equals(vo.getPassword())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int updatePw(UserVO vo) { //패스워드 변경 처리만들기
+		//단건조회
+		UserVO uservo = dao.getUser(vo);
+		//기존 패스워드와 일치하는지 체크
+		if (uservo.getPassword().equals(vo.getOldpassword())) {
+			return dao.updatePw(vo);
+		}
+			return 0;
+		//패스워드 업데이트
 		
 	}
 }
